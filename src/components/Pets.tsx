@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { PetComponent } from "../styles/Styles.modules";
+import { useNavigate } from "react-router-dom";
 
-interface Pet {
+export interface Pet {
   id: number;
   name: string;
   species: string;
@@ -18,10 +19,6 @@ interface DataProps {
   selectedTypes: Set<string>;
   latestAdded: boolean;
 }
-
-const showDetails = () => {
-  console.log("Details clicked");
-};
 
 const Pets: React.FC<DataProps> = ({
   apiEndpoint,
@@ -46,6 +43,12 @@ const Pets: React.FC<DataProps> = ({
     return date;
   }
 
+  const nav = useNavigate();
+
+  const navigateToPet = (pet: Pet) => {
+    nav(`/pet/${pet.id}`);
+  };
+
   // if (latestAdded == true) {
   //   const sortedItems = showItems.sort(
   //     (a, b) =>
@@ -69,13 +72,13 @@ const Pets: React.FC<DataProps> = ({
   return (
     <>
       <PetComponent>
-        {filteredItems.map((items, index) => {
+        {filteredItems.map((item, index) => {
           return (
-            <div key={items.id}>
+            <div key={item.id}>
               <div className="pet">
                 <div className="petImage">
                   <img
-                    src={items.photoUrl}
+                    src={item.photoUrl}
                     alt="img"
                     style={{
                       width: 350,
@@ -86,9 +89,9 @@ const Pets: React.FC<DataProps> = ({
                   />
                 </div>
                 <div className="petInfo">
-                  <h4>{items.name}</h4>
+                  <h4>{item.name}</h4>
                 </div>
-                <button onClick={showDetails}>View</button>
+                <button onClick={() => navigateToPet(item)}>View</button>
               </div>
             </div>
           );

@@ -5,7 +5,8 @@ import { ContentItem } from "../styles/Styles.modules";
 import TypeDropdown, { types } from "./TypeDropdown";
 import CategoryDropdown, { options } from "./CategoryDropdown";
 import Pets from "./Pets";
-
+import PetsDirectory from "./PetsDirectory";
+import Categories from "./Categories";
 
 const Content = () => {
   const [query, setQuery] = useState<string>('');
@@ -43,6 +44,11 @@ const Content = () => {
         Results
       </Typography>
       <Pets apiEndpoint="https://660579c92ca9478ea1806a31.mockapi.io/api/v1/pets" serachQuery={query} selectedTypes={selectedTypes} latestAdded={latest}/>
+      <PetsDirectory imageSrc="./images/treats.jpg" title="Pets directory" description="See all pets available for adoption, promote them and get them a home"/>
+      <Typography sx={{ fontWeight: "bold", fontSize: "15px" }}>
+        Categories
+      </Typography>
+      <Categories/>
     </ContentItem>
   );
 };
